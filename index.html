@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Blog</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar {
+            width: 250px;
+            background: #f4f4f4;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+            max-width: 800px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .post-list a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Categories</h2>
+        <div class="post-list">
+            <a href="#" onclick="loadMarkdown('post1.md')">📌 첫 번째 글</a>
+            <a href="#" onclick="loadMarkdown('post2.md')">📌 두 번째 글</a>
+            <a href="#" onclick="loadMarkdown('post3.md')">📌 세 번째 글</a>
+        </div>
+    </div>
+    <div class="content">
+        <h1>Markdown Blog</h1>
+        <div id="markdown-content">📄 마크다운 글을 선택하세요.</div>
+    </div>
+    
+    <script>
+        function loadMarkdown(file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('markdown-content').innerHTML = marked.parse(text);
+                })
+                .catch(error => console.error('Error loading markdown:', error));
+        }
+    </script>
+</body>
+</html>
+
